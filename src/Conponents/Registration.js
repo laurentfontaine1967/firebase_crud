@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { getDatabase } from "firebase/database";
-import { ref, set, db } from "firebase/database";
+import { ref, set } from "firebase/database";
 import StartFirebase from "../Conponents/firebaseConfig.js";
 import { useNavigate } from "react-router-dom";
 import { uid } from "uid";

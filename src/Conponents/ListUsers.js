@@ -29,7 +29,7 @@ function ListUsers() {
       setUsers(users);
     });
   }, []);
-  console.log(users);
+  // console.log(users);
 
   const deleteUser = (userId) => {
     const database = getDatabase();
@@ -59,7 +59,7 @@ function ListUsers() {
                 <p class="card-text">{user.id}</p>
                 <Link
                   class="btn btn-warning btn-sm card-link"
-                  to={`/editusers/${users.id}`}
+                  to={`/editusers/${user.id}`}
                 >
                   edit user
                 </Link>

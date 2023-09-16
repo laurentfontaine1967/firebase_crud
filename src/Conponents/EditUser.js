@@ -2,13 +2,13 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import StartFirebase from "../Conponents/firebaseConfig.js";
 import { getDatabase } from "firebase/database";
-import { set, get, child, ref } from "firebase/database";
+import { set, ref } from "firebase/database";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 import { onValue } from "firebase/database";
-import { ref as sRef } from "firebase/storage";
+
 //https://www.youtube.com/watch?v=Ph6r58iuAWw&ab_channel=HACodes
 
 function EditUser() {
@@ -46,9 +46,8 @@ function EditUser() {
 
   const onSubmit = (data) => {
     console.log(data);
-    const uuid = { id };
-    set(ref(database, `users/${uuid}`), {
-      id: uuid,
+    // const uuid = { id };
+    set(ref(database, `users/${id}`), {
       firstName: data.firstName,
       lastName: data.lastName,
       email: data.email,
@@ -64,7 +63,10 @@ function EditUser() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div class="row">
           <input
-            value={users.firstName}
+            defaultValue={users.firstName}
+            // onChange={(e) => {
+            //   setUsers({ ...users, firstName: e.target.value });
+            // }}
             {...register("firstName", {
               required: true,
               maxLength: 20,
@@ -81,7 +83,7 @@ function EditUser() {
             <p role="alert">minimun 2 caractères</p>
           )}
           <input
-            value={users.lastName}
+            defaultValue={users.lastName}
             {...register("lastName", {
               required: true,
               maxLength: 20,
@@ -98,7 +100,7 @@ function EditUser() {
             <p role="alert">minimun 2 caractères</p>
           )}
           <input
-            value={users.email}
+            defaultValue={users.email}
             {...register("email", {
               required: true,
               pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
@@ -112,7 +114,7 @@ function EditUser() {
           )}
 
           <input
-            value={users.password}
+            defaultValue={users.password}
             {...register("password", { required: true, minLength: 8 })}
             placeholder="password"
             class="mt-4"

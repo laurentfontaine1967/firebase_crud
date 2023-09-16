@@ -22,6 +22,7 @@ function ListUsers() {
     const usersRef = ref(database, "users");
     onValue(usersRef, (snapshot) => {
       const data = snapshot.val();
+      console.log(data);
       const users = [];
       for (let id in data) {
         users.push(data[id]);
@@ -29,12 +30,12 @@ function ListUsers() {
       setUsers(users);
     });
   }, []);
-  // console.log(users);
+  //console.log(users);
 
   const deleteUser = (userId) => {
     const database = getDatabase();
     const userRef = ref(database, `users/${userId}`);
-    console.log(userRef);
+    //console.log(userRef);
     remove(userRef)
       .then(() => {
         console.log("Utilisateur supprimé avec succès");

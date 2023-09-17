@@ -1,6 +1,10 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-
+import StartFirebase from "../Conponents/firebaseConfig.js";
+import { ref, onValue, getDatabase } from "firebase/database";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+// https://www.youtube.com/watch?v=Vv_Oi7zPPTw
 function Login() {
   const divStyle = {
     width: "50%",
@@ -10,8 +14,50 @@ function Login() {
     formState: { errors },
     handleSubmit,
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+  // const onSubmit = (data) => console.log(data);
 
+  let history = useNavigate();
+  const [users, setUsers] = useState([]);
+  const onSubmit = (data) => {
+    const emailVal = data.email;
+    const passwordVal = data.password;
+    StartFirebase();
+    const database = getDatabase();
+
+    const usersRef = ref(database, "users");
+    onValue(usersRef, (snapshot) => {
+      const data = snapshot.val();
+      console.log(data);
+      const usersEntity = [];
+      for (let id in data) {
+        usersEntity.push(data[id]);
+      }
+      for (let i = 0; i < usersEntity.length; i++) {
+        if (
+          usersEntity[i].email === emailVal &&
+          usersEntity[i].password === passwordVal
+        ) {
+          alert("Vous etes identifiés");
+          //set the value
+          const users = usersEntity[i].value;
+          setUsers(users);
+          window.localStorage.setItem(
+            "passKey",
+            JSON.stringify(usersEntity[i].id)
+          );
+          window.localStorage.setItem(
+            "passName",
+            JSON.stringify(usersEntity[i].lastName)
+          );
+
+          history("/home");
+        } else {
+          alert("Ce compte n'existe pas");
+          history("/login");
+        }
+      }
+    });
+  };
   return (
     <div class="container" style={divStyle}>
       <h1 class="mt-4">Login</h1>

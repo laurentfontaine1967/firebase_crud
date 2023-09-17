@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import StartFirebase from "../Conponents/firebaseConfig.js";
-import { getDatabase } from "firebase/database";
+import { getDatabase, update } from "firebase/database";
 import { set, ref } from "firebase/database";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -46,8 +46,8 @@ function EditUser() {
 
   const onSubmit = (data) => {
     console.log(data);
-    // const uuid = { id };
-    set(ref(database, `users/${id}`), {
+
+    update(ref(database, `users/${id}`), {
       firstName: data.firstName,
       lastName: data.lastName,
       email: data.email,

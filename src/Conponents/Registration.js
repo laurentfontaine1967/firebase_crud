@@ -32,7 +32,7 @@ function Registration() {
       email: data.email,
       password: data.password,
     });
-    history("/listusers");
+    history("/product");
   };
 
   // const newPostKey = push(child(ref(database), "users/")).key;

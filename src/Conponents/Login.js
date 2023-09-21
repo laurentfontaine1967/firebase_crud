@@ -41,14 +41,8 @@ function Login() {
           //set the value
           const users = usersEntity[i].value;
           setUsers(users);
-          window.localStorage.setItem(
-            "passKey",
-            JSON.stringify(usersEntity[i].id)
-          );
-          window.localStorage.setItem(
-            "passName",
-            JSON.stringify(usersEntity[i].lastName)
-          );
+          window.localStorage.setItem("passKey", usersEntity[i].id);
+          window.localStorage.setItem("passName", usersEntity[i].lastName);
 
           history("/home");
         } else {

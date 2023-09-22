@@ -14,9 +14,16 @@ function Header() {
     ) {
       setUsers(window.localStorage.getItem("passName"));
     } else {
-      setUsers("Inconnu");
+      setUsers("");
     }
   }, []);
+
+  const handleLogout = () => {
+    window.localStorage.removeItem("passName");
+    window.localStorage.removeItem("passKey");
+    window.localStorage.removeItem("role");
+    window.location.reload();
+  };
   return (
     <Navbar expand="lg" bg="dark" data-bs-theme="dark">
       <Container>
@@ -25,11 +32,12 @@ function Header() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             {/* <Nav.Link href="/">Home</Nav.Link> */}
-            <Nav.Link href="">Bonjour {users}</Nav.Link>
-            <Nav.Link href="/register">Register</Nav.Link>s
+            <Nav.Link href="">{users}</Nav.Link>
+            <Nav.Link href="/register">Register</Nav.Link>
             <Nav.Link href="/login">Login</Nav.Link>
+            <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
+            <Nav.Link href="/test">Test</Nav.Link>
             <Nav.Link href="/product">Product</Nav.Link>
-            <Nav.Link href="/listusers">List users</Nav.Link>
             {/* <NavDropdown title="Dropdown" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">

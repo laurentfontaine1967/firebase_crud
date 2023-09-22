@@ -1,3 +1,4 @@
+// https://www.youtube.com/watch?v=g0ShSFlJa2U
 import { Navigate } from "react-router-dom";
 
 const PrivateRoutes = ({ component: Component, ...rest }) => {

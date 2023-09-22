@@ -3,9 +3,10 @@ import { useForm } from "react-hook-form";
 import StartFirebase from "../Conponents/firebaseConfig.js";
 import { ref, onValue, getDatabase } from "firebase/database";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+
 // https://www.youtube.com/watch?v=Vv_Oi7zPPTw
-function Login() {
+
+function Test() {
   const divStyle = {
     width: "50%",
   };
@@ -17,44 +18,55 @@ function Login() {
   // const onSubmit = (data) => console.log(data);
 
   let history = useNavigate();
-  const [users, setUsers] = useState([]);
+
   const onSubmit = (data) => {
     const emailVal = data.email;
     const passwordVal = data.password;
     StartFirebase();
     const database = getDatabase();
-
     const usersRef = ref(database, "users");
+
+    // //console.log(usersRef);
     onValue(usersRef, (snapshot) => {
       const data = snapshot.val();
-      console.log(data);
+      // console.log(data);
       const usersEntity = [];
+
       for (let id in data) {
         usersEntity.push(data[id]);
       }
-      for (let i = 0; i < usersEntity.length; i++) {
-        if (
-          usersEntity[i].email === emailVal &&
-          usersEntity[i].password === passwordVal
-        ) {
-          alert("Vous etes identifiés");
-          //set the value
-          const users = usersEntity[i].value;
-          setUsers(users);
-          window.localStorage.setItem("passKey", usersEntity[i].id);
-          window.localStorage.setItem("passName", usersEntity[i].lastName);
 
-          history("/home");
-        } else {
-          alert("Ce compte n'existe pas");
-          history("/login");
-        }
+      const userSearchMail = usersEntity.filter((user) => {
+        return user.email === emailVal;
+      });
+      const userSearchPassword = usersEntity.filter((user) => {
+        return user.password === passwordVal;
+      });
+
+      if (userSearchMail.length === 0) {
+        alert("Ce compte n'existe pas");
+        history("/login");
+        //console.log(userSearchMail);
+      }
+      if (userSearchPassword.length === 0) {
+        alert("Mot de passe incorrect");
+        history("/login");
+      } else if (userSearchMail && userSearchPassword) {
+        // console.log(userSearchMail);
+        alert("Vous etes identifiés");
+        const users = userSearchMail;
+        //console.log(users);
+
+        window.localStorage.setItem("passKey", users[0].id);
+        window.localStorage.setItem("role", users[0].role);
+        window.localStorage.setItem("passName", users[0].lastName);
+        history("/product");
       }
     });
   };
   return (
     <div class="container" style={divStyle}>
-      <h1 class="mt-4">Login</h1>
+      <h1 class="mt-4">Login-test</h1>
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <div class="row">
@@ -88,4 +100,4 @@ function Login() {
     </div>
   );
 }
-export default Login;
+export default Test;

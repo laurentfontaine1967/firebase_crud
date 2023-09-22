@@ -31,7 +31,9 @@ function Registration() {
       lastName: data.lastName,
       email: data.email,
       password: data.password,
+      role: "user",
     });
+    alert("Votre compte a bien été créé");
     history("/product");
   };
 

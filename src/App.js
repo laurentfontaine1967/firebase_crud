@@ -8,6 +8,7 @@ import Product from "./Conponents/Product.js";
 import ListUsers from "./Conponents/ListUsers";
 import EditUser from "./Conponents/EditUser";
 import PrivateRoutes from "./PrivateRoutes.js";
+import Test from "./Conponents/test";
 
 function App() {
   // const { users } = useState([]);
@@ -56,6 +57,7 @@ function App() {
           <Route path="/product" element={<Product />} />
           <Route path="/register" element={<Registration />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/test" element={<Test />} />
           <Route
             path="/listusers"
             element={<PrivateRoutes component={<ListUsers />} />}

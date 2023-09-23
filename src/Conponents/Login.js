@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import StartFirebase from "../Conponents/firebaseConfig.js";
 import { ref, onValue, getDatabase } from "firebase/database";
 import { useNavigate } from "react-router-dom";
-
+import { useState } from "react";
 // https://www.youtube.com/watch?v=Vv_Oi7zPPTw
 
 function Test() {
@@ -16,7 +16,7 @@ function Test() {
     handleSubmit,
   } = useForm();
   // const onSubmit = (data) => console.log(data);
-
+  const [users, setUsers] = useState([]);
   let history = useNavigate();
 
   const onSubmit = (data) => {
@@ -35,42 +35,47 @@ function Test() {
       for (let id in data) {
         usersEntity.push(data[id]);
       }
-
+      //console.log(usersEntity);
       const userSearchMail = usersEntity.filter((user) => {
         return user.email === emailVal;
-      });
-      const userSearchPassword = usersEntity.filter((user) => {
-        return user.password === passwordVal;
       });
 
       if (userSearchMail.length === 0) {
         alert("Ce compte n'existe pas");
+        document.getElementById("email").value = "";
+        document.getElementById("password").value = "";
         history("/login");
         //console.log(userSearchMail);
       }
-      if (userSearchPassword.length === 0) {
-        alert("Mot de passe incorrect");
-        history("/login");
-      } else if (userSearchMail && userSearchPassword) {
-        // console.log(userSearchMail);
-        alert("Vous etes identifiés");
-        const users = userSearchMail;
-        //console.log(users);
 
-        window.localStorage.setItem("passKey", users[0].id);
-        window.localStorage.setItem("role", users[0].role);
-        window.localStorage.setItem("passName", users[0].lastName);
-        history("/product");
+      if (userSearchMail.length > 0) {
+        const users = userSearchMail;
+        setUsers(users[0].lastName);
+        if (users[0].password === passwordVal) {
+          // console.log(userSearchMail);
+          alert("Bonjour " + users[0].lastName);
+
+          window.localStorage.setItem("passKey", users[0].id);
+          window.localStorage.setItem("role", users[0].role);
+          window.localStorage.setItem("passName", users[0].lastName);
+          history("/product");
+          //console.log(users);
+        } else {
+          document.getElementById("password").value = "";
+          alert("Mot de passe incorrect");
+          history("/login");
+        }
       }
     });
   };
   return (
     <div class="container" style={divStyle}>
-      <h1 class="mt-4">Login-test</h1>
+      <h1 class="mt-4">Login</h1>
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <div class="row">
           <input
+            id="email"
             {...register("email", {
               required: true,
               pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
@@ -84,6 +89,7 @@ function Test() {
           )}
 
           <input
+            id="password"
             {...register("password", { required: true, minLength: 8 })}
             placeholder="password"
             class="mt-4"

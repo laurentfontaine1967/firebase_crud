@@ -9,21 +9,21 @@ function Header() {
 
   useEffect(() => {
     if (
-      window.localStorage.getItem("passName") &&
-      window.localStorage.getItem("passKey")
+      !window.localStorage.getItem("passName") &&
+      !window.localStorage.getItem("passKey")
     ) {
       setUsers(window.localStorage.getItem("passName"));
     } else {
       setUsers("");
     }
   }, []);
-
   const handleLogout = () => {
     window.localStorage.removeItem("passName");
     window.localStorage.removeItem("passKey");
     window.localStorage.removeItem("role");
     window.location.reload();
   };
+
   return (
     <Navbar expand="lg" bg="dark" data-bs-theme="dark">
       <Container>

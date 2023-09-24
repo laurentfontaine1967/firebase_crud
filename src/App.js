@@ -8,47 +8,8 @@ import Product from "./Conponents/Product.js";
 import ListUsers from "./Conponents/ListUsers";
 import EditUser from "./Conponents/EditUser";
 import PrivateRoutes from "./PrivateRoutes.js";
-import Test from "./Conponents/test";
-
+import Admin from "./Conponents/Admin.js";
 function App() {
-  // const { users } = useState([]);
-
-  // const passName = window.localStorage.getItem("passName");
-  // const passKey = window.localStorage.getItem("passKey");
-  // if (passName && passKey) {
-  //   const users = [];
-  //   users.push(passName);
-  //   console.log(users);
-
-  //   function road() {
-  //     return (
-  //       <>
-  //         <Route path="/listusers" element={<ListUsers />} />
-  //         <Route path="/editusers/:id" element={<EditUser />} />
-  //       </>
-  //     );
-  //   }
-
-  //   function road2() {
-  //     return (
-  //       <>
-  //         <Route path="/product" element={<Product />} />
-  //         <Route path="/register" element={<Registration />} />
-  //         <Route path="/login" element={<Login />} />
-  //       </>
-  //     );
-  //   }
-
-  //   function choice() {
-  //     if (passName && passKey) {
-  //       return road();
-  //     } else {
-  //       return road2();
-  //     }
-  //   }
-  // }
-  // console.log(users);
-
   return (
     <div className="App">
       <Header />
@@ -57,11 +18,13 @@ function App() {
           <Route path="/product" element={<Product />} />
           <Route path="/register" element={<Registration />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/test" element={<Test />} />
+
           <Route
             path="/listusers"
-            element={<PrivateRoutes component={<ListUsers />} />}
+            element={<PrivateRoutes component={ListUsers} />}
           />
+          <Route path="/admin" element={<PrivateRoutes component={Admin} />} />
+
           <Route path="/editusers/:id" element={<EditUser />} />
           <Route />
         </Routes>

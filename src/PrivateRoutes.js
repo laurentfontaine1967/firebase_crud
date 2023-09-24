@@ -1,9 +1,11 @@
 // https://www.youtube.com/watch?v=g0ShSFlJa2U
+
 import { Navigate } from "react-router-dom";
 
 const PrivateRoutes = ({ component: Component, ...rest }) => {
-  const passName = window.localStorage.getItem("passName");
-  if (passName === "Laurent") {
+  const role = window.localStorage.getItem("role");
+  console.log(role);
+  if (role === "admin") {
     return <Component {...rest} />;
   } else {
     // return <Navigate to="/login" />;

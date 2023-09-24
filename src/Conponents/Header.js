@@ -5,12 +5,12 @@ import Navbar from "react-bootstrap/Navbar";
 import { useEffect, useState } from "react";
 
 function Header() {
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState("");
 
   useEffect(() => {
     if (
-      !window.localStorage.getItem("passName") &&
-      !window.localStorage.getItem("passKey")
+      window.localStorage.getItem("passName") &&
+      window.localStorage.getItem("passKey")
     ) {
       setUsers(window.localStorage.getItem("passName"));
     } else {

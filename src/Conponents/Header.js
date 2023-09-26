@@ -36,7 +36,7 @@ function Header() {
             <Nav.Link href="/register">Register</Nav.Link>
             <Nav.Link href="/login">Login</Nav.Link>
             <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
-            <Nav.Link href="/test">Test</Nav.Link>
+            {/* <Nav.Link href="/test">Test</Nav.Link> */}
             <Nav.Link href="/product">Product</Nav.Link>
             {/* <NavDropdown title="Dropdown" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>

@@ -10,6 +10,8 @@ function Test() {
   const divStyle = {
     width: "50%",
   };
+  let history = useNavigate();
+
   const {
     register,
     formState: { errors },
@@ -17,7 +19,6 @@ function Test() {
   } = useForm();
   // const onSubmit = (data) => console.log(data);
   const [users, setUsers] = useState([]);
-  let history = useNavigate();
 
   const onSubmit = (data) => {
     const emailVal = data.email;

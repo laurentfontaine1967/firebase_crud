@@ -9,6 +9,7 @@ import ListUsers from "./Conponents/ListUsers";
 import EditUser from "./Conponents/EditUser";
 import PrivateRoutes from "./PrivateRoutes.js";
 import Admin from "./Conponents/Admin.js";
+import Context from "./Context.js";
 function App() {
   return (
     <div className="App">
@@ -16,9 +17,11 @@ function App() {
       <Router>
         <Routes>
           <Route path="/product" element={<Product />} />
-          <Route path="/register" element={<Registration />} />
-          <Route path="/login" element={<Login />} />
-
+          <Route path="/login" element={<Context component={Login} />} />
+          <Route
+            path="/register"
+            element={<Context component={Registration} />}
+          />
           <Route
             path="/listusers"
             element={<PrivateRoutes component={ListUsers} />}
